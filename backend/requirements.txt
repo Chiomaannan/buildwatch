@@ -1,0 +1,36 @@
+# ── Web framework ─────────────────────────────────────────────────────
+fastapi==0.111.0
+uvicorn[standard]==0.29.0
+python-multipart==0.0.9
+
+# ── Settings & validation ─────────────────────────────────────────────
+pydantic==2.7.1
+pydantic-settings==2.2.1
+
+# ── Database ──────────────────────────────────────────────────────────
+sqlalchemy==2.0.30
+psycopg2-binary==2.9.9
+
+# ── Task queue ────────────────────────────────────────────────────────
+celery==5.4.0
+redis==5.0.4
+flower==2.0.1
+
+# ── Object storage ────────────────────────────────────────────────────
+minio==7.2.7
+
+# ── Computer vision ───────────────────────────────────────────────────
+opencv-python-headless==4.9.0.80
+Pillow==10.3.0
+numpy==1.26.4
+
+# ── AI / Deep learning ────────────────────────────────────────────────
+# torch + torchvision + ultralytics are installed conditionally in the
+# Dockerfile (skipped when MOCK_INFERENCE=true build arg is set).
+
+# ── Anthropic SDK (plan analysis via Claude vision) ───────────────────
+anthropic==0.40.0
+
+# ── PDF generation ────────────────────────────────────────────────────
+weasyprint>=62.0
+jinja2>=3.1.0

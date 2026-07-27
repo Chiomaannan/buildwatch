@@ -1,0 +1,30 @@
+[Unit]
+Description=BuildWatch Edge Agent — site image capture and upload
+Documentation=https://github.com/your-repo/AIconstruction
+# Wait for the network to be fully up before starting
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/buildwatch/edge
+ExecStart=/usr/bin/python3 /home/pi/buildwatch/edge/main.py
+
+# Restart automatically on crash or OOM kill
+Restart=always
+RestartSec=15
+
+# Give the network a moment to stabilise after boot before first capture
+ExecStartPre=/bin/sleep 10
+
+# Log stdout/stderr to journald (view with: journalctl -u buildwatch-edge -f)
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=buildwatch-edge
+
+# Pass secrets via the .env file — never hard-code them here
+EnvironmentFile=/home/pi/buildwatch/edge/.env
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,25 @@
+# Environment
+.env
+
+# Python
+venv/
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Pre-downloaded pip wheels (regenerable from requirements.txt, ~180M)
+backend/wheels/
+
+# macOS
+.DS_Store
+
+# Logs
+*.log
+
+# Docker named volumes (defensive — currently managed by Docker, not host mounts)
+minio_data/
+postgres_data/
+
+# dashboard/ has its own separate repo + GitHub remote (Chiomaannan/buildwatch-dashboard) — not tracked here
+dashboard/
