@@ -51,6 +51,8 @@ def _migrate_columns() -> None:
         "ALTER TABLE projects ADD COLUMN IF NOT EXISTS mwpi_state JSON",
         "ALTER TABLE inference_results ADD COLUMN IF NOT EXISTS class_ratios_raw JSON",
         "ALTER TABLE inference_results ADD COLUMN IF NOT EXISTS class_ratios JSON",
+        "ALTER TABLE projects ADD COLUMN IF NOT EXISTS client_name VARCHAR(255)",
+        "ALTER TABLE projects ADD COLUMN IF NOT EXISTS client_whatsapp_number VARCHAR(32)",
     ]
     for stmt in statements:
         try:

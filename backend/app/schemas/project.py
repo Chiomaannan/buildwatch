@@ -21,6 +21,10 @@ class ProjectCreate(BaseModel):
     description: str | None = None
     location: str | None = None
     bim_config: BIMConfig | None = None
+    client_name: str | None = None
+    client_whatsapp_number: str | None = Field(
+        None, max_length=32, description="E.164 format, e.g. +233507149092"
+    )
 
 
 class ProjectUpdate(BaseModel):
@@ -29,6 +33,10 @@ class ProjectUpdate(BaseModel):
     location: str | None = None
     status: str | None = Field(None, pattern="^(active|paused|completed)$")
     bim_config: BIMConfig | None = None
+    client_name: str | None = None
+    client_whatsapp_number: str | None = Field(
+        None, max_length=32, description="E.164 format, e.g. +233507149092"
+    )
 
 
 class ProjectOut(BaseModel):
@@ -38,6 +46,8 @@ class ProjectOut(BaseModel):
     location: str | None
     status: str
     bim_config: dict | None
+    client_name: str | None
+    client_whatsapp_number: str | None
     created_at: datetime
     updated_at: datetime
 

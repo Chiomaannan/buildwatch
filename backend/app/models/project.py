@@ -46,6 +46,10 @@ class Project(Base):
     name: Mapped[str] = mapped_column(String(255), nullable=False)
     description: Mapped[str | None] = mapped_column(Text, nullable=True)
     location: Mapped[str | None] = mapped_column(String(512), nullable=True)
+    client_name: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    # E.164 format, e.g. "+233507149092" — the "whatsapp:" prefix Twilio needs
+    # is added at send time, not stored here.
+    client_whatsapp_number: Mapped[str | None] = mapped_column(String(32), nullable=True)
     status: Mapped[str] = mapped_column(
         String(20), nullable=False, default="active"
     )  # active | paused | completed

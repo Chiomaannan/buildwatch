@@ -29,6 +29,8 @@ def create_project(payload: ProjectCreate, db: Session = Depends(get_db)):
         description=payload.description,
         location=payload.location,
         bim_config=payload.bim_config.model_dump() if payload.bim_config else None,
+        client_name=payload.client_name,
+        client_whatsapp_number=payload.client_whatsapp_number,
     )
     db.add(project)
     db.commit()

@@ -130,6 +130,10 @@ services:
       - SECRET_KEY=${SECRET_KEY}
       - MOCK_INFERENCE=false
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - TWILIO_ACCOUNT_SID=${TWILIO_ACCOUNT_SID:-}
+      - TWILIO_AUTH_TOKEN=${TWILIO_AUTH_TOKEN:-}
+      - TWILIO_WHATSAPP_FROM=${TWILIO_WHATSAPP_FROM:-}
+      - BACKEND_PUBLIC_URL=${BACKEND_PUBLIC_URL:-}
     volumes:
       - ./backend:/app
       - model_cache:/root/.cache
@@ -141,6 +145,24 @@ services:
       minio:
         condition: service_healthy
     command: celery -A app.tasks.celery_app worker --loglevel=info --concurrency=2 -Q inference
+
+  # ── Celery Beat (scheduler — currently just the weekly WhatsApp report) ──
+  celery_beat:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+      args:
+        MOCK_INFERENCE: "true"
+    container_name: aic_celery_beat
+    restart: unless-stopped
+    environment:
+      - REDIS_URL=redis://redis:6379/0
+    volumes:
+      - ./backend:/app
+    depends_on:
+      redis:
+        condition: service_healthy
+    command: celery -A app.tasks.celery_app beat --loglevel=info
 
   # ── Celery Flower (task monitoring UI) ────────────────────────────
   flower:

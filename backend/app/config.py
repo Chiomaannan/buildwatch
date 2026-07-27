@@ -55,6 +55,19 @@ class Settings(BaseSettings):
     # Leave empty to fall back to YOLO area analysis or hard defaults.
     anthropic_api_key: str = ""
 
+    # ── Twilio WhatsApp (scheduled report sending) ────────────────────
+    # Demo-scoped: uses Twilio's WhatsApp Sandbox, not a production
+    # WhatsApp Business number. See AIconstruction/CONTEXT.md for setup.
+    twilio_account_sid: str = ""
+    twilio_auth_token: str = ""
+    twilio_whatsapp_from: str = ""  # sandbox number, no "whatsapp:" prefix, e.g. "+14155238886"
+
+    # Publicly reachable base URL for this backend (e.g. an ngrok tunnel).
+    # Twilio fetches the report PDF from here when delivering a WhatsApp
+    # document message — it cannot reach "localhost". Empty = sending is
+    # skipped rather than attempted against an unreachable URL.
+    backend_public_url: str = ""
+
 
 @lru_cache
 def get_settings() -> Settings:
