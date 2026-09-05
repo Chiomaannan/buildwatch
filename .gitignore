@@ -23,3 +23,6 @@ postgres_data/
 
 # dashboard/ has its own separate repo + GitHub remote (Chiomaannan/buildwatch-dashboard) — not tracked here
 dashboard/
+
+# Local Claude Code config — not relevant to reviewers
+.claude/
